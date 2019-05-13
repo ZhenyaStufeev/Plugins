@@ -22,6 +22,7 @@ namespace TestProject
                 {
                     Console.WriteLine("     - " + a + "\n");
                 }
+                counter++;
             }
             
 
