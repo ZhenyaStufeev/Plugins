@@ -11,6 +11,8 @@ namespace IPluginLibrary
     public class PluginService: IPluginService
     {
         private List<PluginAssemblyLoadContext> contexts = new List<PluginAssemblyLoadContext>();
+        private List<MethodInfo> plugins_methods = new List<MethodInfo>();
+
         private string[] plugins { get; set; }
         private string BaseDir { get; set; }
         //IFileContext context { get; set; }
@@ -86,15 +88,13 @@ namespace IPluginLibrary
             foreach (var context in contexts)
                 foreach (var plugin in context.GetImplementations<IPlugin>())
                 {
-                    //Console.WriteLine("SERVICE: " + plugin.GetInfo().PluginName);
-                    if (plugin.Verify(ExtensionName))
+                    //Console.WriteLine(plugin.GetType());
+                    if (plugin.GetInfo().PluginName == ExtensionName)
                     {
                         return plugin;
                     }
                 }
-
-
-            Console.WriteLine("Service not found plugin");
+            //Console.WriteLine("Service not found plugin");
             return null;
         }
     }
